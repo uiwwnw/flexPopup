@@ -1,0 +1,34 @@
+//예약안내 scss
+@import "./popup";
+@include npPopup($class: reservationGuide,
+$width: 510px,
+$height: 300px,
+$min-width: auto, 
+$min-height: auto, 
+$max-width: auto, 
+$max-height: auto, 
+$contentsBottomPadding: 0
+) {
+  .title {
+    margin-top: 40px;
+    font-size: 26px;
+    text-align: center;
+    font-weight: 400;
+    color: #000;
+  }
+  .textArea {
+    margin-top: 16px;
+    line-height: 1.3;
+    text-align: center;
+    font-weight: 500;
+    font-size: 15px;
+    color: #666;
+    p {
+      margin: auto;
+    }
+    .warn {
+      color: #e63232;
+    }
+  }
+}
+
