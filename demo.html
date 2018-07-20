@@ -8,7 +8,7 @@
     <title>Document</title>
     <script src="./flexPopup.js"></script>
     <style type="text/css">
-        .npPopup {
+        .fpPopup {
             z-index: 1000;
             position: fixed;
             top: 0;
@@ -22,30 +22,30 @@
             text-align: center;
         }
 
-        .npPopup.hasHeader .npPosition:before {
+        .fpPopup.hasHeader .fpPosition:before {
             top: -50px;
         }
 
-        .npPopup.hasFooter .npPosition:before {
+        .fpPopup.hasFooter .fpPosition:before {
             bottom: -70px;
         }
 
-        .npPopup.open {
+        .fpPopup.open {
             display: block;
         }
 
-        .npPopup:before {
+        .fpPopup:before {
             display: inline-block;
             height: 100%;
             vertical-align: middle;
             content: "";
         }
 
-        .npPopup::selection {
+        .fpPopup::selection {
             background: 0;
         }
 
-        .npPopup .npPosition {
+        .fpPopup .fpPosition {
             z-index: 2;
             position: relative;
             display: inline-block;
@@ -60,7 +60,7 @@
             background: #fff;
         }
 
-        .npPopup .npPosition:before {
+        .fpPopup .fpPosition:before {
             z-index: -1;
             position: absolute;
             top: 0;
@@ -71,13 +71,13 @@
             content: "";
         }
 
-        .npPopup .npContents {
+        .fpPopup .fpContents {
             overflow: auto;
             max-width: 100%;
             max-height: 100%;
         }
 
-        .npPopup .npHeader {
+        .fpPopup .fpHeader {
             position: absolute;
             top: -50px;
             left: -1px;
@@ -88,7 +88,7 @@
             background: #fff;
         }
 
-        .npPopup .npHeader .npTitle {
+        .fpPopup .fpHeader .fpTitle {
             margin: 0;
             padding: 0 60px 0 16px;
             font-size: 16px;
@@ -99,7 +99,7 @@
             text-overflow: ellipsis;
         }
 
-        .npPopup .npHeader .npCloseBtn {
+        .fpPopup .fpHeader .fpCloseBtn {
             position: absolute;
             right: 0;
             top: 0;
@@ -109,11 +109,11 @@
             background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAARCAYAAADQWvz5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA25pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo5MDI3OTk0Yi0yYjI1LTJlNGMtYTQ4YS1iYzA2NDRkMGIzMzIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzM1QTQyNDQ4NjUzMTFFOEI5NjNFOUIwNEYxNTk1NTciIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzM1QTQyNDM4NjUzMTFFOEI5NjNFOUIwNEYxNTk1NTciIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OTY5MUEwNTc4MzRDMTFFOEJCQkVFNDlFQTgyRDk0RkYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OTY5MUEwNTg4MzRDMTFFOEJCQkVFNDlFQTgyRDk0RkYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6WSLqQAAABB0lEQVR42pySaaqFMAyFmzrgNgWnDSnOrlNE8zhCoLe1vdfXP9WkOfky0DAMTESqLEtS/ziIx03MrKZpYtxVVb0Sm+f5jgOEhgEfMMDxhkRE8K/FUdc1neepxnHkX0gEQGw3iXlQpv3I9iNh0zQffm0/lDKXZXHIQHtdlyPySGQGwYeSpSdRFKmiKB5JvUISrLVWoMCKhKaqQ00FDRL9shpBIWl8lmWqbdvgNL2l2Uu6bRvv+/7YaC9R3/f3dMxy8jwn9Mm3Zw6RLJtvOvDbSRwiTAmPfCKSAGTSP0cImb6N2Fza4zjUuq78URp6EsdxkOTpdF3HSZLcwoSxpmn6WsQUQ/yfAAMAl6XEeJIUMXAAAAAASUVORK5CYII=") no-repeat center;
         }
 
-        .npPopup .npHeader .npCloseBtn:active {
+        .fpPopup .fpHeader .fpCloseBtn:active {
             background-color: #ebebeb;
         }
 
-        .npPopup .npFooter {
+        .fpPopup .fpFooter {
             position: absolute;
             left: -1px;
             top: 100%;
@@ -126,7 +126,7 @@
             background: #fff;
         }
 
-        .npPopup .npFooter button {
+        .fpPopup .fpFooter button {
             display: inline-block;
             font-size: 16px;
             min-width: 140px;
@@ -137,34 +137,34 @@
             background: 0;
         }
 
-        .npPopup .npFooter button+button {
+        .fpPopup .fpFooter button+button {
             margin-left: 10px;
         }
 
-        .npPopup .npFooter button.npCancel {
+        .fpPopup .fpFooter button.fpCancel {
             color: #fff;
             background: #323232;
         }
 
-        .npPopup .npFooter button.npCancel {
+        .fpPopup .fpFooter button.fpCancel {
             color: #fff;
             background: #323232;
         }
 
-        .npPopup .npFooter button.npCancel:active {
+        .fpPopup .fpFooter button.fpCancel:active {
             background: #424242;
         }
 
-        .npPopup .npFooter button.npConfirm {
+        .fpPopup .fpFooter button.fpConfirm {
             color: #000;
             border: 1px solid #000;
         }
 
-        .npPopup .npFooter button.npConfirm:active {
+        .fpPopup .fpFooter button.fpConfirm:active {
             background: #ebebeb;
         }
 
-        .npPopup .npDim {
+        .fpPopup .fpDim {
             z-index: 1;
             position: absolute;
             top: 0;
@@ -174,12 +174,12 @@
             background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjZERDY1MjUzODY1MzExRThCRDY3RjRDQkUyNjVEMzc3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjZERDY1MjU0ODY1MzExRThCRDY3RjRDQkUyNjVEMzc3Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NkRENjUyNTE4NjUzMTFFOEJENjdGNENCRTI2NUQzNzciIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NkRENjUyNTI4NjUzMTFFOEJENjdGNENCRTI2NUQzNzciLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5OnGDiAAAAD0lEQVR42mJgYGDwBQgwAABSAE5RZV5PAAAAAElFTkSuQmCC");
         }
 
-        .npPopup .npContents .reservationGuide {
+        .fpPopup .fpContents .reservationGuide {
             width: 510px;
             height: 300px;
         }
 
-        .npPopup .npContents .reservationGuide .title {
+        .fpPopup .fpContents .reservationGuide .title {
             margin-top: 40px;
             font-size: 26px;
             text-align: center;
@@ -187,7 +187,7 @@
             color: #000;
         }
 
-        .npPopup .npContents .reservationGuide .textArea {
+        .fpPopup .fpContents .reservationGuide .textArea {
             margin-top: 16px;
             line-height: 1.3;
             text-align: center;
@@ -196,11 +196,11 @@
             color: #666;
         }
 
-        .npPopup .npContents .reservationGuide .textArea p {
+        .fpPopup .fpContents .reservationGuide .textArea p {
             margin: auto;
         }
 
-        .npPopup .npContents .reservationGuide .textArea .warn {
+        .fpPopup .fpContents .reservationGuide .textArea .warn {
             color: #e63232;
         }
     </style>
@@ -208,14 +208,14 @@
 
 <body>
     <button class="eventCall">lorem</button>
-    <div class="npPopup" id="reservationGuide">
+    <div class="fpPopup" id="reservationGuide">
         <!-- id는 호출 용도로만 사용 -->
-        <div class="npPosition">
-            <div class="npHeader">
-                <h2 class="npTitle">lorem</h2>
-                <a class="npCloseBtn" href="#">팝업창 닫기</a>
+        <div class="fpPosition">
+            <div class="fpHeader">
+                <h2 class="fpTitle">lorem</h2>
+                <a class="fpCloseBtn" href="#">팝업창 닫기</a>
             </div>
-            <div class="npContents">
+            <div class="fpContents">
                 <div class="reservationGuide">
                     <!-- 실제 내용 영역 -->
                     <h3 class="title">Lorem ipsum dolor sit.</h3>
@@ -229,25 +229,25 @@
                     </div>
                 </div>
             </div>
-            <div class="npFooter">
-                <button class="npCancel">lorem</button>
-                <button class="npConfirm">lorem</button>
+            <div class="fpFooter">
+                <button class="fpCancel">lorem</button>
+                <button class="fpConfirm">lorem</button>
             </div>
         </div>
     </div>
     <script>
 
 
-        var reservationGuide = new npPopup('reservationGuide');
+        var reservationGuide = new fpPopup('reservationGuide');
         reservationGuide.open();
 
         document.querySelector('.eventCall').onclick = function () {
             reservationGuide.open();
         }
-        document.querySelector('.npCloseBtn').onclick = function () {
+        document.querySelector('.fpCloseBtn').onclick = function () {
             reservationGuide.close();
         }
-        document.querySelector('.npConfirm').onclick = function () {
+        document.querySelector('.fpConfirm').onclick = function () {
             reservationGuide.close();
         }
     </script>

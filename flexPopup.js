@@ -1,4 +1,4 @@
-var npPopup = function (e) {
+var fpPopup = function (e) {
   var _this = this;
   var ctr = {};
   ctr.bool = false;
@@ -6,12 +6,12 @@ var npPopup = function (e) {
     padding: 20
   };
   ctr.el = document.getElementById(e);
-  ctr.header = ctr.el.querySelector('.npHeader');
-  ctr.contents = ctr.el.querySelector('.npContents');
-  ctr.position = ctr.el.querySelector('.npPosition');
-  ctr.footer = ctr.el.querySelector('.npFooter');
+  ctr.header = ctr.el.querySelector('.fpHeader');
+  ctr.contents = ctr.el.querySelector('.fpContents');
+  ctr.position = ctr.el.querySelector('.fpPosition');
+  ctr.footer = ctr.el.querySelector('.fpFooter');
   ctr.dim = document.createElement('i');
-  ctr.dim.setAttribute('class', 'npDim');
+  ctr.dim.setAttribute('class', 'fpDim');
   ctr.el.appendChild(ctr.dim);
   ctr.headerHeight;
   ctr.footerHeight;

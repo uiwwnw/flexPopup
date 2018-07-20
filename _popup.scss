@@ -13,9 +13,9 @@ $popupBorderColor: #333;
   @return mix($shade, $color, $amount);
 }
 
-@mixin npPopup($class, $width: auto, $height: auto, $min-width: auto, $min-height: auto, $max-width: auto, $max-height: auto, $contentsBottomPadding: 0) {
-  .npPopup {
-    .npContents {
+@mixin fpPopup($class, $width: auto, $height: auto, $min-width: auto, $min-height: auto, $max-width: auto, $max-height: auto, $contentsBottomPadding: 0) {
+  .fpPopup {
+    .fpContents {
       .#{$class} {
         width: $width;
         @if ($min-width !=auto) {
@@ -44,9 +44,9 @@ $popupBorderColor: #333;
   }
 }
 
-$npPopupImport: false;
-@if($npPopupImport==false) {
-  .npPopup {
+$fpPopupImport: false;
+@if($fpPopupImport==false) {
+  .fpPopup {
     z-index: 1000;
     position: fixed;
     top: 0;
@@ -59,14 +59,14 @@ $npPopupImport: false;
     white-space: nowrap;
     text-align: center;
     &.hasHeader {
-      .npPosition {
+      .fpPosition {
         &:before {
           top: -$headerHeight;
         }
       }
     }
     &.hasFooter {
-      .npPosition {
+      .fpPosition {
         &:before {
           bottom: -$footerHeight;
         }
@@ -84,7 +84,7 @@ $npPopupImport: false;
     &::selection {
       background: 0;
     }
-    .npPosition {
+    .fpPosition {
       z-index: 2;
       position: relative;
       display: inline-block;
@@ -108,12 +108,12 @@ $npPopupImport: false;
         content: "";
       }
     }
-    .npContents {
+    .fpContents {
       overflow: auto;
       max-width: 100%;
       max-height: 100%;
     }
-    .npHeader {
+    .fpHeader {
       position: absolute;
       top: -$headerHeight;
       left: -1px;
@@ -122,7 +122,7 @@ $npPopupImport: false;
       border: 1px solid $popupBorderColor;
       border-bottom: 1px solid #dde4ec;
       background: #fff;
-      .npTitle {
+      .fpTitle {
         margin: 0;
         padding: 0 60px 0 16px;
         font-size: 16px;
@@ -132,7 +132,7 @@ $npPopupImport: false;
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      .npCloseBtn {
+      .fpCloseBtn {
         position: absolute;
         right: 0;
         top: 0;
@@ -145,7 +145,7 @@ $npPopupImport: false;
         }
       }
     }
-    .npFooter {
+    .fpFooter {
       position: absolute;
       left: -1px;
       top: 100%;
@@ -168,18 +168,18 @@ $npPopupImport: false;
         &+button {
           margin-left: 10px;
         }
-        &.npCancel {
+        &.fpCancel {
           color: #fff;
           background: #323232;
         }
-        &.npCancel {
+        &.fpCancel {
           color: #fff;
           background: #323232;
           &:active {
             background: color-shade(#323232);
           }
         }
-        &.npConfirm {
+        &.fpConfirm {
           color: #000;
           border: 1px solid #000;
           &:active {
@@ -188,7 +188,7 @@ $npPopupImport: false;
         }
       }
     }
-    .npDim {
+    .fpDim {
       z-index: 1;
       position: absolute;
       top: 0;
@@ -200,4 +200,4 @@ $npPopupImport: false;
   }
 }
 
-$npPopupImport: true;
+$fpPopupImport: true;
