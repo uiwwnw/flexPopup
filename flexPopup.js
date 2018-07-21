@@ -1,3 +1,8 @@
+/*
+  flexPopup v0.1.0
+  http:/github.com/uiwwnw/flexPopup/
+  copyright uiwwnw
+*/
 var fpPopup = function (e) {
   var _this = this;
   var ctr = {};
