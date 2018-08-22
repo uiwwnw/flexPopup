@@ -1,6 +1,6 @@
 # flexPopup
 
-### 사용방법 How to use
+## 사용방법 How to use
 1. 선언
 
 ```javascript
@@ -27,8 +27,14 @@ document.querySelector('.fpConfirm').onclick = function () {
 
 
 ```
+
 [jsfiddle's demo](https://jsfiddle.net/uiwwnw/23nv17yz/)
 
-#### flexPopup v0.1.0 
-#### http:/github.com/uiwwnw/flexPopup/
-#### copyright uiwwnw
+## AUTHOR
+
+uiwwnw &lt;[uiwwnw@icloud.com](mailto:uiwwnw@icloud.com)&gt;
+
+## LICENSE
+
+[MIT](https://uiwwnw.mit-license.org)
+
