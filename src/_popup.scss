@@ -3,9 +3,6 @@
   http:/github.com/uiwwnw/flexPopup/
   copyright uiwwnw
 */
-$popupPadding: 20px;
-$headerHeight: 50px;
-$footerHeight: 70px;
 $popupBorderColor: #333;
 @function color-shade($color, $amount: 8%) {
   $lightness: lightness($color); //밝은지 체크
@@ -17,40 +14,8 @@ $popupBorderColor: #333;
   @return mix($shade, $color, $amount);
 }
 
-@mixin fpPopup($class, $width: auto, $height: auto, $min-width: auto, $min-height: auto, $max-width: auto, $max-height: auto, $contentsBottomPadding: 0) {
-  .fpPopup {
-    .fpContents {
-      .#{$class} {
-        width: $width;
-        @if ($min-width !=auto) {
-          min-width: $min-width;
-        }
-        @if ($max-width !=auto) {
-          max-width: $max-width;
-        }
-        height: $height;
-        @if ($min-height !=auto) {
-          min-height: $min-height;
-        }
-        @if ($max-height !=auto) {
-          max-height: $max-height;
-        }
-        @if ($contentsBottomPadding !=0) {
-          &:after {
-            display: block;
-            padding-bottom: $contentsBottomPadding;
-            content: "";
-          }
-        }
-        @content;
-      }
-    }
-  }
-}
-
-$fpPopupImport: false;
-@if($fpPopupImport==false) {
-  .fpPopup {
+@mixin fxPopup($class, $popupPadding: 20px, $headerHeight: 50px, $footerHeight: 70px, $width: auto, $height: auto, $min-width: auto, $min-height: auto, $max-width: auto, $max-height: auto, $contentsBottomPadding: 0) {
+  .fxPopup.#{$class} {
     z-index: 1000;
     position: fixed;
     top: 0;
@@ -63,14 +28,14 @@ $fpPopupImport: false;
     white-space: nowrap;
     text-align: center;
     &.hasHeader {
-      .fpPosition {
+      .fxPosition {
         &:before {
           top: -$headerHeight;
         }
       }
     }
     &.hasFooter {
-      .fpPosition {
+      .fxPosition {
         &:before {
           bottom: -$footerHeight;
         }
@@ -88,7 +53,7 @@ $fpPopupImport: false;
     &::selection {
       background: 0;
     }
-    .fpPosition {
+    .fxPosition {
       z-index: 2;
       position: relative;
       display: inline-block;
@@ -112,12 +77,35 @@ $fpPopupImport: false;
         content: "";
       }
     }
-    .fpContents {
+    .fxContents {
       overflow: auto;
       max-width: 100%;
+      width: $width;
       max-height: 100%;
+
+      @if ($min-width !=auto) {
+        min-width: $min-width;
+      }
+      @if ($max-width !=auto) {
+        max-width: $max-width;
+      }
+      height: $height;
+      @if ($min-height !=auto) {
+        min-height: $min-height;
+      }
+      @if ($max-height !=auto) {
+        max-height: $max-height;
+      }
+      @if ($contentsBottomPadding !=0) {
+        &:after {
+          display: block;
+          padding-bottom: $contentsBottomPadding;
+          content: "";
+        }
+      }
+      @content;
     }
-    .fpHeader {
+    .fxHeader {
       position: absolute;
       top: -$headerHeight;
       left: -1px;
@@ -126,7 +114,7 @@ $fpPopupImport: false;
       border: 1px solid $popupBorderColor;
       border-bottom: 1px solid #dde4ec;
       background: #fff;
-      .fpTitle {
+      .fxTitle {
         margin: 0;
         padding: 0 60px 0 16px;
         font-size: 16px;
@@ -136,7 +124,7 @@ $fpPopupImport: false;
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      .fpCloseBtn {
+      .fxCloseBtn {
         position: absolute;
         right: 0;
         top: 0;
@@ -149,7 +137,7 @@ $fpPopupImport: false;
         }
       }
     }
-    .fpFooter {
+    .fxFooter {
       position: absolute;
       left: -1px;
       top: 100%;
@@ -172,18 +160,18 @@ $fpPopupImport: false;
         &+button {
           margin-left: 10px;
         }
-        &.fpCancel {
+        &.fxCancel {
           color: #fff;
           background: #323232;
         }
-        &.fpCancel {
+        &.fxCancel {
           color: #fff;
           background: #323232;
           &:active {
             background: color-shade(#323232);
           }
         }
-        &.fpConfirm {
+        &.fxConfirm {
           color: #000;
           border: 1px solid #000;
           &:active {
@@ -192,7 +180,7 @@ $fpPopupImport: false;
         }
       }
     }
-    .fpDim {
+    .fxDim {
       z-index: 1;
       position: absolute;
       top: 0;
@@ -203,5 +191,3 @@ $fpPopupImport: false;
     }
   }
 }
-
-$fpPopupImport: true;

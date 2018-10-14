@@ -3,7 +3,7 @@
   http:/github.com/uiwwnw/flexPopup/
   copyright uiwwnw
 */
-var fpPopup = function (e) {
+var flexPopup = function (e) {
   var _this = this;
   var ctr = {};
   ctr.bool = false;
@@ -11,12 +11,12 @@ var fpPopup = function (e) {
     padding: 20
   };
   ctr.el = document.getElementById(e);
-  ctr.header = ctr.el.querySelector('.fpHeader');
-  ctr.contents = ctr.el.querySelector('.fpContents');
-  ctr.position = ctr.el.querySelector('.fpPosition');
-  ctr.footer = ctr.el.querySelector('.fpFooter');
+  ctr.header = ctr.el.querySelector('.flexPopupHeader');
+  ctr.contents = ctr.el.querySelector('.flexPopupContents');
+  ctr.position = ctr.el.querySelector('.flexPopupPosition');
+  ctr.footer = ctr.el.querySelector('.flexPopupFooter');
   ctr.dim = document.createElement('i');
-  ctr.dim.setAttribute('class', 'fpDim');
+  ctr.dim.classList.add('flexPopupDim')
   ctr.el.appendChild(ctr.dim);
   ctr.headerHeight;
   ctr.footerHeight;
