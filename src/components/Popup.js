@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-// import Header from './Header';
+
+const popupOn = btoa(Math.random()).substring(0,6);
+const hasFooter = btoa(Math.random()).substring(0,6);
+const hasHeader = btoa(Math.random()).substring(0,6);
+const positiveBtn = btoa(Math.random()).substring(0,6);
+const negativeBtn = btoa(Math.random()).substring(0,6);
+const normalBtn = btoa(Math.random()).substring(0,6);
 
 const Contents = styled.div`
     overflow: auto;
@@ -69,7 +75,7 @@ const Footer = styled.div`
     height: ${(props) => props.footerHeight};
     text-align: center;
     font-size: 0;
-    border: 1px solid ${(props) => props.popupBorderThick};
+    border: 1px solid ${(props) => props.popupBorderColor};
     border-top: 0;
     background: #fff;
     button {
@@ -84,24 +90,19 @@ const Footer = styled.div`
     &+button {
         margin-left: 10px;
     }
-    &.fxCancel {
-        color: #fff;
-        background: #323232;
-    }
-    &.fxCancel {
+    &.${negativeBtn} {
         color: #fff;
         background: #323232;
         &:active {
-        background: color-shade(#323232);
+            background: color-shade(#323232);
         }
     }
-    &.fxConfirm {
+    &.${positiveBtn} {
         color: #000;
         border: 1px solid #000;
         &:active {
-        background: color-shade(#fff);
+            background: color-shade(#fff);
         }
-    }
     }
 `;
 const Dim = styled.i`
@@ -137,12 +138,12 @@ const Position = styled.div`
       box-shadow: 0 2px 20px rgba(0, 0, 0, .4);
       content: "";
     }
-    .hasHeader & {
+    .${hasHeader} & {
         &:before {
             top: -${(props) => props.headerHeight};
         }
     }
-    .hasFooter & {
+    .${hasFooter} & {
         &:before {
             bottom: -${(props) => props.footerHeight};
         }
@@ -160,7 +161,7 @@ const PopupStyled = styled.div`
   font-size: 0;
   white-space: nowrap;
   text-align: center;
-  &.${(props) => props.openClass} {
+  &.${popupOn} {
     display: block;
   }
   &:before {
@@ -178,6 +179,7 @@ export default class Popup extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
+            bool: this.props.bool,
             openClass: 'open',
 
             width: 'auto',
@@ -189,17 +191,45 @@ export default class Popup extends React.Component {
             popupBorderColor: '#333'
         }
     }
+    componentWillReceiveProps() {
+        this.props.bool?this.toggle():this.toggle();
+    }
+
+    toggle() {
+        this.setState({bool: !this.state.bool});
+        if(this.state.bool) {
+
+        } else {
+
+        }
+    }
+
     render() {
         // make Footer
+        let i = 0;
         let button = [];
         for (var e in this.props.button) {
-            button.push(<button key={e} className={e}>{this.props.button[e]}</button>)
+            i++;
+            let classname;
+            switch(e) {
+                case 'positive': 
+                    classname = positiveBtn;
+                    break;
+                case 'negative': 
+                    classname = negativeBtn;
+                    break;
+                default: 
+                    classname = normalBtn;
+            }
+            button.push(<button key={'idx'+i} className={classname}>{this.props.button[e]}</button>)
         }
-        const Footers = <Footer>{button}</Footer>
-
-        
+        const Footers = <Footer
+                            footerHeight={this.state.footerHeight + 'px'}
+                            popupBorderColor={this.state.popupBorderColor}
+                        >{button}</Footer>;
         return (
             <PopupStyled
+                className={this.state.bool?popupOn:''}
                 openClass={this.state.openClass}
                 popupWidth={this.props.width ? this.props.width + 'px' : this.state.width}
                 headerHeight={this.state.headerHeight + 'px'}
@@ -210,11 +240,10 @@ export default class Popup extends React.Component {
                 <Position>
                     <Header
                         headerHeight={this.state.headerHeight + 'px'}
-                        footerHeight={this.state.footerHeight + 'px'}
                         popupBorderColor={this.state.popupBorderColor}
                     >
                         <h2>{this.props.title}</h2>
-                        <a href="#">팝업창 닫기</a>
+                        <a href="#" onClick={this.toggle.bind(this)}>팝업창 닫기</a>
                     </Header>
                     <Contents>
                         {this.props.children}
@@ -222,9 +251,13 @@ export default class Popup extends React.Component {
                     </Contents>
                     {Footers}
                 </Position>
-                <Dim></Dim>
+                <Dim onClick={this.toggle.bind(this)}></Dim>
             </PopupStyled>
         );
     }
 }
 
+// export {toggle};
+// const toggle = this.toggle;
+
+// export {toggle};
