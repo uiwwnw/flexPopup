@@ -1,8 +1,8 @@
 {
-  "name": "react-popup",
+  "name": "react-flexpopup",
   "version": "1.0.0",
-  "description": "react-popup, react popup, react dialog",
-  "main": "index.js",
+  "description": "react-flexpopup, react, popup, dialog, flexpopup",
+  "main": "react-popup.js",
   "scripts": {
     "start": "webpack --watch",
     "server": "webpack-dev-server --inline --hot",
@@ -10,18 +10,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/uiwwnw/flexPopup.git"
+    "url": "git+https://github.com/uiwwnw/react-flexpopup.git"
   },
   "keywords": [
     "react",
-    "popup"
+    "popup",
+    "flexpopup"
   ],
   "author": "uiwwnw (uiwwnw@icloud.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/uiwwnw/flexpopup/issues"
+    "url": "https://github.com/uiwwnw/react-flexpopup/issues"
   },
-  "homepage": "https://github.com/uiwwnw/flexpopup#readme",
+  "homepage": "https://github.com/uiwwnw/react-flexpopup#readme",
   "dependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",

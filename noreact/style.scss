@@ -1,6 +1,6 @@
 //예약안내 scss
 @import "./popup";
-@include fpPopup($class: reservationGuide,
+@include fxPopup($class: reservationGuide,
 $width: 510px,
 $height: 300px,
 $min-width: auto, 

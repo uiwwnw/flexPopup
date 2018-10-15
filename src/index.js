@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import Popup from './components/Popup';
+import Popup from '../react-flexpopup';
 
 export default class App extends React.Component {
     constructor() {
