@@ -195,6 +195,7 @@ export default class ClassPopup extends React.Component {
         super(...arguments);
         this.state = {
             bool: this.props.bool,
+            resize: null,
             openClass: 'open',
 
             width: 'auto',
@@ -222,27 +223,40 @@ export default class ClassPopup extends React.Component {
         if(!this.state.bool) {
             const PopupElem = document.querySelector('.'+Popup.styledComponentId);
             PopupElem.classList.add(popupOn);
-            // this.popupClass(popupOn, !this.state.bool);
-            const windowHeight = window.innerHeight;
-            const HeightElem = document.querySelector('.'+Header.styledComponentId);
+            let windowHeight = window.innerHeight;
+            const HeaderElem = document.querySelector('.'+Header.styledComponentId);
             const FooterElem = document.querySelector('.'+Footer.styledComponentId);
-            // const PositiveElem = document.querySelector('.'+Position.styledComponentId);
+            const PositionElem = document.querySelector('.'+Position.styledComponentId);
             const contentsElem = document.querySelector('.'+Contents.styledComponentId);
-            const contentsHeight = contentsElem.offsetHeight;
+            let contentsHeight = Math.ceil(contentsElem.scrollHeight);
             const margin = (this.state.popupOuterPadding * 2) + this.state.headerHeight + this.state.footerHeight;
-            const height = windowHeight - margin;
-
+            let height = windowHeight - margin;
+            const resize = () => {
+                PopupElem.classList.remove(hasScroll);
+                windowHeight = window.innerHeight;
+                contentsHeight = Math.ceil(contentsElem.scrollHeight);
+                height = windowHeight - margin;
+                PositionElem.style.height = contentsHeight + 'px';
+                if(PositionElem.style.height === contentsHeight) {
+                    return false;
+                }
+            };
+            this.setState({resize: resize});
             (height < contentsHeight) && (PopupElem.classList.add(hasScroll));
-            (HeightElem !== null) && (PopupElem.classList.add(hasHeader));
+            (HeaderElem !== null) && (PopupElem.classList.add(hasHeader));
             (FooterElem !== null) && (PopupElem.classList.add(hasFooter));
+            window.addEventListener('resize', resize, true);
         } else {
             const PopupElem = document.querySelector('.'+Popup.styledComponentId);
-            // this.popupClass(popupOn, !this.state.bool);
+            PopupElem.classList.add(popupOn);
+            const PositionElem = document.querySelector('.'+Position.styledComponentId);
+            PositionElem.style = '';
             PopupElem.classList.remove(popupOn, hasScroll, hasHeader, hasFooter);
+            window.removeEventListener('resize', this.state.resize, true);
         };
         if(typeof e === 'function') {
             e();
-        }
+        };
     }
 
     render() {

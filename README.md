@@ -1,8 +1,20 @@
-# react-popup
+# react-flexpopup
+
+## 설명
+react-flexpopup은
+최소한의 스크립트만으로 반응형 팝업을 제작할 수 있습니다.
+
+resize, scroll등의 높은 리소스사용 이벤트를 최소화하고
+style만으로 구현한 팝업입니다.
+
+오픈할때 스크롤생성을 위한 이벤트가 작동하고,
+리사이즈할때 컨텐츠의 높이를 바꿔넣어줍니다.
+
+그리고 아무 동작없이 반응형하는 팝업을 유지할 수 있습니다.
 
 ## 사용방법 How to use
 1. import react-popup
-`import Popup from 'react-flexpopup';
+`import Popup from './components/react-flexpopup';`
 
 1. use it
 

@@ -1,8 +1,6 @@
-node_modules/
 src/
 noreact/
 dist/
 .gitignore
 package-lock.json
 .DS_Store
-webpack.config.js
