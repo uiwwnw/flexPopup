@@ -1,31 +1,30 @@
-# flexPopup
+# react-popup
 
 ## 사용방법 How to use
-1. 선언
+1. import react-popup
+`import Popup from 'react-flexpopup';
 
-```javascript
-var reservationGuide = new fpPopup('reservationGuide');
-reservationGuide.open(); //팝업오픈
-
-document.querySelector('.eventCall').onclick = function () {
-    reservationGuide.open(); //버튼에 오픈 이벤트 
-}
-document.querySelector('.fpCloseBtn').onclick = function () {
-    reservationGuide.close(); // 버튼에 클로즈 이벤트 
-}
-document.querySelector('.fpConfirm').onclick = function () {
-    reservationGuide.close(); // 버튼에 클로즈 이벤트 
-}
-```
-
-1. onclick
+1. use it
 
 ```html
-<!--var reservationGuide = new fpPopup('reservationGuide');-->
-<a class="fpCloseBtn" href="#" onclick="reservationGuide.cloce();">팝업창 닫기</a>
-<button class="fpCancel" onclick="reservationGuide.cloce();">lorem</button>
+<Popup bool={true}>
+    <h3>가나다</h3>
+    <p>dddsdss</p>
+</Popup>
 
+```
 
+1. option
+
+```html
+<Popup 
+    bool={this.state.testPopup} 
+    title="popup title" 
+    button={{'positive': {'text': 'YES', 'callback': function(){alert('close popup')}}, 'negative': {'text': 'NO', 'callback': function(){alert('close popup too')}}}}
+>
+    <h3>가나다</h3>
+    <p>dddsdss</p>
+</Popup>
 ```
 
 [jsfiddle's demo](https://jsfiddle.net/uiwwnw/23nv17yz/)
