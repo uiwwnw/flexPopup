@@ -18,7 +18,11 @@ export default class App extends React.Component {
         return (
             <div>
                 <button onClick={this.popupOpen.bind(this)}>팝업호출</button>
-                <Popup bool={this.state.testPopup} title="팝업타이틀" button={{'positive': 'YES', 'negative': 'NO'}}>
+                <Popup 
+                    bool={this.state.testPopup} 
+                    title="팝업타이틀" 
+                    button={{'positive': {'text': 'YES', 'callback': function(){alert('close popup')}}, 'negative': {'text': 'NO', 'callback': function(){alert('close popup too')}}}}
+                >
                     <h3>가나다</h3>
                     <p>dddsdss</p>
                 </Popup>
