@@ -1,194 +1,220 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 const makeClassName = (n) => {
     return btoa(Math.random()).substring(0,n);
-    // return btoa(Math.random()).substring(0,n).toLowerCase();
 };
-const popupOn = makeClassName(7);
-const hasScroll = makeClassName(7);
-const hasHeader = makeClassName(7);
-const hasFooter = makeClassName(7);
-const positiveBtn = makeClassName(7);
-const negativeBtn = makeClassName(7);
-const normalBtn = makeClassName(7);
+const makeNew = function() {
+    const popupOn = makeClassName(7);
+    const hasScroll = makeClassName(7);
+    const hasHeader = makeClassName(7);
+    const hasFooter = makeClassName(7);
+    const positiveBtn = makeClassName(7);
+    const negativeBtn = makeClassName(7);
+    const normalBtn = makeClassName(7);
 
-const Contents = styled.div`
-    overflow: auto;
-    max-width: 100%;
-    width: ${(props) => props.popupWidth};
-    height: ${(props) => props.popupHeight};
-    max-height: 100%;
+    const Contents = styled.div`
+        overflow: auto;
+        max-width: 100%;
+        width: ${(props) => props.popupWidth};
+        height: ${(props) => props.popupHeight};
+        max-height: 100%;
 
-    // @if ($min-width !=auto) {
-    //   min-width: $min-width;
-    // }
-    // @if ($max-width !=auto) {
-    //   max-width: $max-width;
-    // }
-    // height: $height;
-    // @if ($min-height !=auto) {
-    //   min-height: $min-height;
-    // }
-    // @if ($max-height !=auto) {
-    //   max-height: $max-height;
-    // }
-    // @if ($contentsBottomPadding !=0) {
-    //   &:after {
-    //     display: block;
-    //     padding-bottom: $contentsBottomPadding;
-    //     content: "";
-    //   }
-    // }
-`;
-const Header = styled.div`
-  position: absolute;
-  top: -${(props) => props.headerHeight + 'px'};
-  left: -1px;
-  width: 100%;
-  height: ${(props) => props.headerHeight + 'px'};
-  border: 1px solid ${(props) => props.popupBorderColor};
-  border-bottom: 1px solid #dde4ec;
-  background: #fff;
-  h2 {
-    margin: 0;
-    padding: 0 60px 0 16px;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: ${(props) => props.headerHeight + 'px'};
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  a {
+        // @if ($min-width !=auto) {
+        //   min-width: $min-width;
+        // }
+        // @if ($max-width !=auto) {
+        //   max-width: $max-width;
+        // }
+        // height: $height;
+        // @if ($min-height !=auto) {
+        //   min-height: $min-height;
+        // }
+        // @if ($max-height !=auto) {
+        //   max-height: $max-height;
+        // }
+        // @if ($contentsBottomPadding !=0) {
+        //   &:after {
+        //     display: block;
+        //     padding-bottom: $contentsBottomPadding;
+        //     content: "";
+        //   }
+        // }
+    `;
+    const Header = styled.div`
     position: absolute;
-    right: 0;
-    top: 0;
-    width: ${(props) => props.headerHeight + 'px'};
+    top: -${(props) => props.headerHeight - props.popupBorderThick + 'px'};
+    width: 100%;
     height: ${(props) => props.headerHeight + 'px'};
-    text-indent: -9999px;
-    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAARCAYAAADQWvz5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA25pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo5MDI3OTk0Yi0yYjI1LTJlNGMtYTQ4YS1iYzA2NDRkMGIzMzIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzM1QTQyNDQ4NjUzMTFFOEI5NjNFOUIwNEYxNTk1NTciIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzM1QTQyNDM4NjUzMTFFOEI5NjNFOUIwNEYxNTk1NTciIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OTY5MUEwNTc4MzRDMTFFOEJCQkVFNDlFQTgyRDk0RkYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OTY5MUEwNTg4MzRDMTFFOEJCQkVFNDlFQTgyRDk0RkYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6WSLqQAAABB0lEQVR42pySaaqFMAyFmzrgNgWnDSnOrlNE8zhCoLe1vdfXP9WkOfky0DAMTESqLEtS/ziIx03MrKZpYtxVVb0Sm+f5jgOEhgEfMMDxhkRE8K/FUdc1neepxnHkX0gEQGw3iXlQpv3I9iNh0zQffm0/lDKXZXHIQHtdlyPySGQGwYeSpSdRFKmiKB5JvUISrLVWoMCKhKaqQ00FDRL9shpBIWl8lmWqbdvgNL2l2Uu6bRvv+/7YaC9R3/f3dMxy8jwn9Mm3Zw6RLJtvOvDbSRwiTAmPfCKSAGTSP0cImb6N2Fza4zjUuq78URp6EsdxkOTpdF3HSZLcwoSxpmn6WsQUQ/yfAAMAl6XEeJIUMXAAAAAASUVORK5CYII=") no-repeat center;
-    &:active {
-      background-color: color-shade(#fff);
-    }
-  }
-`;
-const Footer = styled.div`
-    position: absolute;
-    left: -1px;
-    top: 100%;
-    width: 100%;
-    height: ${(props) => props.footerHeight + 'px'};
-    text-align: center;
-    font-size: 0;
-    border: 1px solid ${(props) => props.popupBorderColor};
-    border-top: 0;
+    border-bottom: ${(props) => props.popupBorderThick + 'px'} solid ${(props) => props.popupDivideBorderColor};
     background: #fff;
-    button {
-    display: inline-block;
-    font-size: 16px;
-    min-width: 140px;
-    min-height: 40px;
-    font-size: 16px;
-    border: 0;
-    border-radius: 2px;
-    background: 0;
-    &+button {
-        margin-left: 10px;
+    h2 {
+        margin: 0;
+        padding: 0 60px 0 16px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: ${(props) => props.headerHeight + 'px'};
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
-    &.${negativeBtn} {
-        color: #fff;
-        background: #323232;
+    a {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: ${(props) => props.headerHeight + 'px'};
+        height: ${(props) => props.headerHeight + 'px'};
+        text-indent: -9999px;
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAARCAYAAADQWvz5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA25pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo5MDI3OTk0Yi0yYjI1LTJlNGMtYTQ4YS1iYzA2NDRkMGIzMzIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzM1QTQyNDQ4NjUzMTFFOEI5NjNFOUIwNEYxNTk1NTciIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzM1QTQyNDM4NjUzMTFFOEI5NjNFOUIwNEYxNTk1NTciIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OTY5MUEwNTc4MzRDMTFFOEJCQkVFNDlFQTgyRDk0RkYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OTY5MUEwNTg4MzRDMTFFOEJCQkVFNDlFQTgyRDk0RkYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6WSLqQAAABB0lEQVR42pySaaqFMAyFmzrgNgWnDSnOrlNE8zhCoLe1vdfXP9WkOfky0DAMTESqLEtS/ziIx03MrKZpYtxVVb0Sm+f5jgOEhgEfMMDxhkRE8K/FUdc1neepxnHkX0gEQGw3iXlQpv3I9iNh0zQffm0/lDKXZXHIQHtdlyPySGQGwYeSpSdRFKmiKB5JvUISrLVWoMCKhKaqQ00FDRL9shpBIWl8lmWqbdvgNL2l2Uu6bRvv+/7YaC9R3/f3dMxy8jwn9Mm3Zw6RLJtvOvDbSRwiTAmPfCKSAGTSP0cImb6N2Fza4zjUuq78URp6EsdxkOTpdF3HSZLcwoSxpmn6WsQUQ/yfAAMAl6XEeJIUMXAAAAAASUVORK5CYII=") no-repeat center;
         &:active {
-            background: color-shade(#323232);
+        background-color: color-shade(#fff);
         }
     }
-    &.${positiveBtn} {
-        color: #000;
-        border: 1px solid #000;
-        &:active {
-            background: color-shade(#fff);
+    `;
+    const Footer = styled.div`
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        height: ${(props) => props.footerHeight + 'px'};
+        margin-top: -${(props) => props.popupBorderThick * 2 + 'px'};
+        text-align: center;
+        font-size: 0;
+        border-top: ${(props) => props.popupBorderThick + 'px'} solid ${(props) => props.popupDivideBorderColor};
+        background: #fff;
+        
+        &:before {
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            content: "";
         }
-    }
-`;
-const Dim = styled.i`
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjZERDY1MjUzODY1MzExRThCRDY3RjRDQkUyNjVEMzc3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjZERDY1MjU0ODY1MzExRThCRDY3RjRDQkUyNjVEMzc3Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NkRENjUyNTE4NjUzMTFFOEJENjdGNENCRTI2NUQzNzciIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NkRENjUyNTI4NjUzMTFFOEJENjdGNENCRTI2NUQzNzciLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5OnGDiAAAAD0lEQVR42mJgYGDwBQgwAABSAE5RZV5PAAAAAElFTkSuQmCC");
-`;
 
-const Position = styled.div`
-    z-index: 2;
-    position: relative;
-    display: inline-block;
-    max-width: 100%;
-    min-width: 320px;
-    max-height: 100%;
-    text-align: left;
-    border: 1px solid ${(props) => props.popupBorderColor};
-    font-size: 15px;
-    white-space: normal;
-    vertical-align: middle;
-    background: #fff;
-    &:before {
-      z-index: -1;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      box-shadow: 0 2px 20px rgba(0, 0, 0, .4);
-      content: "";
-    }
-    .${hasHeader} & {
-        &:before {
-            top: -${(props) => props.headerHeight + 'px'};
+        button {
+            display: inline-block;
+            font-size: 16px;
+            min-width: 140px;
+            min-height: 40px;
+            vertical-align: middle;
+            font-size: 16px;
+            border: 0;
+            border-radius: 2px;
+            background: 0;
+            &+button {
+                margin-left: 10px;
+            }
+            &.${negativeBtn} {
+                color: #fff;
+                background: #323232;
+                &:active {
+                    background: #000;
+                }
+            }
+            &.${positiveBtn} {
+                color: #000;
+                border: 1px solid #000;
+                &:active {
+                    background: #efefef;
+                }
+            }
         }
-    }
-    .${hasFooter} & {
-        &:before {
-            bottom: -${(props) => props.footerHeight + 'px'};
-        }
-    }
-    .${hasScroll} & {
+    `;
+    const Dim = styled.i`
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
         height: 100%;
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjZERDY1MjUzODY1MzExRThCRDY3RjRDQkUyNjVEMzc3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjZERDY1MjU0ODY1MzExRThCRDY3RjRDQkUyNjVEMzc3Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NkRENjUyNTE4NjUzMTFFOEJENjdGNENCRTI2NUQzNzciIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NkRENjUyNTI4NjUzMTFFOEJENjdGNENCRTI2NUQzNzciLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5OnGDiAAAAD0lEQVR42mJgYGDwBQgwAABSAE5RZV5PAAAAAElFTkSuQmCC");
+    `;
+
+    const Position = styled.div`
+        z-index: 2;
+        position: relative;
+        display: inline-block;
+        max-width: 100%;
+        min-width: 320px;
+        max-height: 100%;
+        text-align: left;
+        // border: 1px solid ${(props) => props.popupBorderColor};
+        // border-top: 0;
+        // border-bottom: 0;
+        font-size: 15px;
+        white-space: normal;
+        vertical-align: middle;
+        background: #fff;
+        &:before {
+        z-index: -1;
+        position: absolute;
+        top: -${(props) => props.popupBorderThick + 'px'};
+        right: -${(props) => props.popupBorderThick + 'px'};
+        bottom: -${(props) => props.popupBorderThick + 'px'};
+        left: -${(props) => props.popupBorderThick + 'px'};
+        border: ${(props) => props.popupBorderThick + 'px'} solid ${(props) => props.popupBorderColor};
+        box-shadow: 0 2px 20px rgba(0, 0, 0, .4);
+        content: "";
+        }
+        .${hasHeader} & {
+            &:before {
+                top: -${(props) => props.headerHeight + 'px'};
+            }
+        }
+        .${hasFooter} & {
+            &:before {
+                bottom: -${(props) => props.footerHeight + 'px'};
+            }
+        }
+        .${hasScroll} & {
+            height: 100%;
+        }
+    `;
+    const Popup = styled.div`
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+    padding: ${(props) => props.popupOuterPadding + 'px'};
+    font-size: 0;
+    white-space: nowrap;
+    text-align: center;
+    &.${popupOn} {
+        display: block;
     }
-`;
-const Popup = styled.div`
-  z-index: 1000;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: none;
-  padding: ${(props) => props.popupOuterPadding + 'px'};
-  font-size: 0;
-  white-space: nowrap;
-  text-align: center;
-  &.${popupOn} {
-    display: block;
-  }
-  &.${hasHeader} {
-    padding-top: ${(props) => props.headerHeight + props.popupOuterPadding + 'px'};
-  }
-  &.${hasFooter} {
-    padding-bottom: ${(props) => props.footerHeight + props.popupOuterPadding + 'px'};
-  }
-  
-  &:before {
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    content: "";
-  }
-  &::selection {
-    background: 0;
-  }
-`;
+    &.${hasHeader} {
+        padding-top: ${(props) => props.headerHeight + props.popupOuterPadding + 'px'};
+    }
+    &.${hasFooter} {
+        padding-bottom: ${(props) => props.footerHeight + props.popupOuterPadding + 'px'};
+    }
+    
+    &:before {
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        content: "";
+    }
+    &::selection {
+        background: 0;
+    }
+    `;
+    return {
+        popupOn: popupOn,
+        hasScroll: hasScroll,
+        hasHeader: hasHeader,
+        hasFooter: hasFooter,
+        positiveBtn: positiveBtn,
+        negativeBtn: negativeBtn,
+        normalBtn: normalBtn,
+        Contents: Contents,
+        Header: Header,
+        Footer: Footer,
+        Dim: Dim,
+        Position: Position,
+        Popup: Popup
+    };
+}
 
 export default class ClassPopup extends React.Component {
     constructor() {
@@ -196,7 +222,8 @@ export default class ClassPopup extends React.Component {
         this.state = {
             bool: this.props.bool,
             resize: null,
-            openClass: 'open',
+
+            ctr: new makeNew(),
 
             width: 'auto',
             height: 'auto',
@@ -205,54 +232,73 @@ export default class ClassPopup extends React.Component {
             footerHeight: 70,
             popupOuterPadding: 20,
             popupBorderThick: 1,
-            popupBorderColor: '#333'
+            popupBorderColor: '#333',
+            popupDivideBorderColor: '#eee'
         }
     }
-    componentWillReceiveProps() {
-        this.props.bool?this.toggle():this.toggle();
+    componentDidMount(){
+        if (this.props.className !== undefined) {
+            const PopupElem = document.querySelector('.'+this.state.ctr.Popup.styledComponentId);
+            PopupElem.classList.add(this.props.className);
+        };
+    }
+    componentWillReceiveProps(e) {
+        if(e.bool === null) {
+            return false;
+        };
+        console.log(e.bool !== this.state.bool);
+        if (e.bool !== this.state.bool){
+            this.setState({
+                bool: e.bool
+            });
+            this.toggle();
+        }
     }
     popupClass(e, b) {
-        const PopupElem = document.querySelector('.'+Popup.styledComponentId);
+        const PopupElem = document.querySelector('.'+this.state.ctr.Popup.styledComponentId);
         b?PopupElem.classList.add(e):PopupElem.classList.remove(e);
     }
 
     toggle(e) {
-        this.setState({
-            bool: !this.state.bool
-        });
-        if(!this.state.bool) {
-            const PopupElem = document.querySelector('.'+Popup.styledComponentId);
-            PopupElem.classList.add(popupOn);
+        if(!this.state.open) {
+            const PopupElem = document.querySelector('.'+this.state.ctr.Popup.styledComponentId);
+            PopupElem.classList.add(this.state.ctr.popupOn);
             let windowHeight = window.innerHeight;
-            const HeaderElem = document.querySelector('.'+Header.styledComponentId);
-            const FooterElem = document.querySelector('.'+Footer.styledComponentId);
-            const PositionElem = document.querySelector('.'+Position.styledComponentId);
-            const contentsElem = document.querySelector('.'+Contents.styledComponentId);
+            const HeaderElem = document.querySelector('.'+this.state.ctr.Header.styledComponentId);
+            const FooterElem = document.querySelector('.'+this.state.ctr.Footer.styledComponentId);
+            const PositionElem = document.querySelector('.'+this.state.ctr.Position.styledComponentId);
+            const contentsElem = document.querySelector('.'+this.state.ctr.Contents.styledComponentId);
             let contentsHeight = Math.ceil(contentsElem.scrollHeight);
             const margin = (this.state.popupOuterPadding * 2) + this.state.headerHeight + this.state.footerHeight;
             let height = windowHeight - margin;
             const resize = () => {
-                PopupElem.classList.remove(hasScroll);
-                windowHeight = window.innerHeight;
                 contentsHeight = Math.ceil(contentsElem.scrollHeight);
-                height = windowHeight - margin;
-                PositionElem.style.height = contentsHeight + 'px';
                 if(PositionElem.style.height === contentsHeight) {
                     return false;
-                }
+                };
+                PopupElem.classList.remove(hasScroll);
+                windowHeight = window.innerHeight;
+                height = windowHeight - margin;
+                PositionElem.style.height = contentsHeight + 'px';
             };
             this.setState({resize: resize});
-            (height < contentsHeight) && (PopupElem.classList.add(hasScroll));
-            (HeaderElem !== null) && (PopupElem.classList.add(hasHeader));
-            (FooterElem !== null) && (PopupElem.classList.add(hasFooter));
+            (height < contentsHeight) && (PopupElem.classList.add(this.state.ctr.hasScroll));
+            (HeaderElem !== null) && (PopupElem.classList.add(this.state.ctr.hasHeader));
+            (FooterElem !== null) && (PopupElem.classList.add(this.state.ctr.hasFooter));
             window.addEventListener('resize', resize, true);
+            this.setState({
+                open: true
+            });
         } else {
-            const PopupElem = document.querySelector('.'+Popup.styledComponentId);
-            PopupElem.classList.add(popupOn);
-            const PositionElem = document.querySelector('.'+Position.styledComponentId);
-            PositionElem.style = '';
-            PopupElem.classList.remove(popupOn, hasScroll, hasHeader, hasFooter);
+            const PopupElem = document.querySelector('.'+this.state.ctr.Popup.styledComponentId);
+            PopupElem.classList.add(this.state.ctr.popupOn);
+            const PositionElem = document.querySelector('.'+this.state.ctr.Position.styledComponentId);
+            PositionElem.removeAttribute('style');
+            PopupElem.classList.remove(this.state.ctr.popupOn, this.state.ctr.hasScroll, this.state.ctr.hasHeader, this.state.ctr.hasFooter);
             window.removeEventListener('resize', this.state.resize, true);
+            this.setState({
+                open: false
+            });
         };
         if(typeof e === 'function') {
             e();
@@ -260,17 +306,18 @@ export default class ClassPopup extends React.Component {
     }
 
     render() {
-        // make Footer
+        // let ctr = new makeNew();
         let header;
         let footer;
         if (this.props.title) {
-            header = <Header
+            header = <this.state.ctr.Header
                 headerHeight={this.state.headerHeight}
-                popupBorderColor={this.state.popupBorderColor}
+                popupBorderThick={this.state.popupBorderThick}
+                popupDivideBorderColor={this.state.popupDivideBorderColor}
             >
                 <h2>{this.props.title}</h2>
                 <a href="#" onClick={this.toggle.bind(this)}>팝업창 닫기</a>
-            </Header>;
+            </this.state.ctr.Header>;
         }
         if (this.props.button !== undefined) {
             let i = 0;
@@ -281,47 +328,49 @@ export default class ClassPopup extends React.Component {
                 let onclick;
                 switch(e) {
                     case 'positive': 
-                        classname = positiveBtn;
+                        classname = this.state.ctr.positiveBtn;
                         onclick = this.toggle.bind(this, this.props.button[e].callback);
                         break;
                     case 'negative': 
-                        classname = negativeBtn;
+                        classname = this.state.ctr.negativeBtn;
                         onclick = this.toggle.bind(this, this.props.button[e].callback);
                         break;
                     default: 
-                        classname = normalBtn;
+                        classname = this.state.ctr.normalBtn;
                 }
                 button.push(<button key={'idx'+i} className={classname} onClick={onclick}>{this.props.button[e].text}</button>)
             }
-            footer = <Footer
+            footer = <this.state.ctr.Footer
                 footerHeight={this.state.footerHeight}
-                popupBorderColor={this.state.popupBorderColor}
+                popupBorderThick={this.state.popupBorderThick}
+                popupDivideBorderColor={this.state.popupDivideBorderColor}
             >
                 {button}
-            </Footer>;
+            </this.state.ctr.Footer>;
         };
         return (
-            <Popup
+            <this.state.ctr.Popup
                 popupOuterPadding={this.state.popupOuterPadding}
-                popupBorderThick={this.state.popupBorderThick}
                 headerHeight={this.state.headerHeight}
                 footerHeight={this.state.footerHeight}
             >
-                <Position
+                <this.state.ctr.Position
                     headerHeight={this.state.headerHeight}
                     footerHeight={this.state.footerHeight}
+                    popupBorderThick={this.state.popupBorderThick}
+                    popupBorderColor={this.state.popupBorderColor}
                 >
                     {header}
-                    <Contents
+                    <this.state.ctr.Contents
                         popupWidth={this.props.width ? this.props.width + 'px' : this.state.width}
                         popupHeight={this.props.height ? this.props.height + 'px' : this.state.height}
                     >
                         {this.props.children}
-                    </Contents>
+                    </this.state.ctr.Contents>
                     {footer}
-                </Position>
-                <Dim onClick={this.toggle.bind(this)}></Dim>
-            </Popup>
+                </this.state.ctr.Position>
+                <this.state.ctr.Dim onClick={this.toggle.bind(this)}></this.state.ctr.Dim>
+            </this.state.ctr.Popup>
         );
     }
 }
