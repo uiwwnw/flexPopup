@@ -36,6 +36,7 @@ export default class App extends React.Component {
                 <Popup
                     className="testClassNaming"
                     bool={this.state.testPopup1} 
+                    width="500"
                     title="팝업타이틀" 
                     button={{'positive': {'text': 'YES', 'callback': function(){alert('close popup')}}, 'negative': {'text': 'NO', 'callback': function(){alert('close popup too')}}}}
                 >
@@ -56,9 +57,30 @@ export default class App extends React.Component {
                 </Popup>
                 <Popup
                     bool={this.state.testPopup3} 
+                    width="570"
                     button={{'positive': {'text': 'CLOSE'}}}
                 >
                     <h3>타이틀없는팝업</h3>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
+                    <p>dddsdss</p>
                     <p>dddsdss</p>
                     <p>dddsdss</p>
                 </Popup>
@@ -66,7 +88,7 @@ export default class App extends React.Component {
                     bool={this.state.testPopup4}
                     title="팝업타이틀4 버튼없음"  
                 >
-                    <p>dddsdss</p>
+                    <p>dsdasasasdjlkasdjkajdkjasdljadkjlsadasdsdasasasdjlkasdjkajdkjasdljadkjlsadasdsdasasasdjlkasdjkajdkjasdljadkjlsadas</p>
                     <p>dddsdss</p>
                 </Popup>
                

@@ -223,7 +223,7 @@ export default class ClassPopup extends React.Component {
             bool: this.props.bool,
             resize: null,
 
-            ctr: new makeNew(),
+            ctr: makeNew(),
 
             width: 'auto',
             height: 'auto',
@@ -246,7 +246,7 @@ export default class ClassPopup extends React.Component {
         if(e.bool === null) {
             return false;
         };
-        console.log(e.bool !== this.state.bool);
+        // console.log(e.bool !== this.state.bool);
         if (e.bool !== this.state.bool){
             this.setState({
                 bool: e.bool
