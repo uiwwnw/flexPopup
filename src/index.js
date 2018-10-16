@@ -47,13 +47,11 @@ export default class App extends React.Component {
                 <Popup
                     bool={this.state.testPopup2} 
                     title="팝업타이틀2 이너팝업" 
-                    button={{'positive': {'text': '1번팝업띄우기', 'callback': this.popupOpen1.bind(this)}}}
+                    button={{'positive': {'text': '타이틀없는팝업', 'function': this.popupOpen3.bind(this)}, 'negative': {'text': '버튼없는팝업', 'function': this.popupOpen4.bind(this)}}}
                 >
                     <h3>가나다</h3>
                     <p>dddsdss</p>
                     <p>dddsdss</p>
-                    <button onClick={this.popupOpen3.bind(this)}>타이틀없는팝업호출</button>
-                    <button onClick={this.popupOpen4.bind(this)}>버튼없는팝업</button>
                 </Popup>
                 <Popup
                     bool={this.state.testPopup3} 

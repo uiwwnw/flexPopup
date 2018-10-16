@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const makeClassName = (n) => {
     return btoa(Math.random()).substring(0,n);
 };
-const makeNew = function() {
+const makeNew = function(a) {
     const popupOn = makeClassName(7);
     const hasScroll = makeClassName(7);
     const hasHeader = makeClassName(7);
@@ -179,6 +179,9 @@ const makeNew = function() {
     font-size: 0;
     white-space: nowrap;
     text-align: center;
+    &.${a} {
+        z-index: 1001;
+    }
     &.${popupOn} {
         display: block;
     }
@@ -223,8 +226,9 @@ export default class ClassPopup extends React.Component {
             bool: this.props.bool,
             resize: null,
 
-            ctr: makeNew(),
-
+            ctr: makeNew('active'),
+            
+            active: 'active',
             width: 'auto',
             height: 'auto',
 
@@ -262,7 +266,9 @@ export default class ClassPopup extends React.Component {
     toggle(e) {
         if(!this.state.open) {
             const PopupElem = document.querySelector('.'+this.state.ctr.Popup.styledComponentId);
-            PopupElem.classList.add(this.state.ctr.popupOn);
+            const activeElem = document.querySelector('.'+this.state.active);
+            (activeElem !== null) && (activeElem.classList.remove(this.state.active));
+            PopupElem.classList.add(this.state.ctr.popupOn, this.state.active);
             let windowHeight = window.innerHeight;
             const HeaderElem = document.querySelector('.'+this.state.ctr.Header.styledComponentId);
             const FooterElem = document.querySelector('.'+this.state.ctr.Footer.styledComponentId);
@@ -329,14 +335,15 @@ export default class ClassPopup extends React.Component {
                 switch(e) {
                     case 'positive': 
                         classname = this.state.ctr.positiveBtn;
-                        onclick = this.toggle.bind(this, this.props.button[e].callback);
+                        onclick = this.props.button[e].function?this.props.button[e].function:this.toggle.bind(this, this.props.button[e].callback);
                         break;
                     case 'negative': 
                         classname = this.state.ctr.negativeBtn;
-                        onclick = this.toggle.bind(this, this.props.button[e].callback);
+                        onclick = this.props.button[e].function?this.props.button[e].function:this.toggle.bind(this, this.props.button[e].callback);
                         break;
                     default: 
                         classname = this.state.ctr.normalBtn;
+                        onclick = this.props.button[e].function?this.props.button[e].function:this.toggle.bind(this, this.props.button[e].callback);
                 }
                 button.push(<button key={'idx'+i} className={classname} onClick={onclick}>{this.props.button[e].text}</button>)
             }
