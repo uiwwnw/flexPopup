@@ -15,9 +15,11 @@ const makeNew = function(a) {
     const Contents = styled.div`
         overflow: auto;
         max-width: 100%;
-        width: ${(props) => props.popupWidth};
-        height: ${(props) => props.popupHeight};
+        // width: ${(props) => props.popupWidth};
+        // height: ${(props) => props.popupHeight};
         max-height: 100%;
+        padding: ${(props) => props.popupInnerPadding + 'px'};
+        box-sizing: border-box;
 
         // @if ($min-width !=auto) {
         //   min-width: $min-width;
@@ -41,65 +43,71 @@ const makeNew = function(a) {
         // }
     `;
     const Header = styled.div`
-    position: absolute;
-    top: -${(props) => props.headerHeight - props.popupBorderThick + 'px'};
-    width: 100%;
-    height: ${(props) => props.headerHeight + 'px'};
-    border-bottom: ${(props) => props.popupBorderThick + 'px'} solid ${(props) => props.popupDivideBorderColor};
-    background: #fff;
-    h2 {
-        margin: 0;
-        padding: 0 60px 0 16px;
-        font-size: 16px;
-        font-weight: 500;
-        line-height: ${(props) => props.headerHeight + 'px'};
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    a {
         position: absolute;
-        right: 0;
-        top: 0;
-        width: ${(props) => props.headerHeight + 'px'};
+        top: -${(props) => props.headerHeight - props.popupBorderThick + 'px'};
+        width: 100%;
         height: ${(props) => props.headerHeight + 'px'};
-        text-indent: -9999px;
-        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAARCAYAAADQWvz5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA25pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo5MDI3OTk0Yi0yYjI1LTJlNGMtYTQ4YS1iYzA2NDRkMGIzMzIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzM1QTQyNDQ4NjUzMTFFOEI5NjNFOUIwNEYxNTk1NTciIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzM1QTQyNDM4NjUzMTFFOEI5NjNFOUIwNEYxNTk1NTciIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OTY5MUEwNTc4MzRDMTFFOEJCQkVFNDlFQTgyRDk0RkYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OTY5MUEwNTg4MzRDMTFFOEJCQkVFNDlFQTgyRDk0RkYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6WSLqQAAABB0lEQVR42pySaaqFMAyFmzrgNgWnDSnOrlNE8zhCoLe1vdfXP9WkOfky0DAMTESqLEtS/ziIx03MrKZpYtxVVb0Sm+f5jgOEhgEfMMDxhkRE8K/FUdc1neepxnHkX0gEQGw3iXlQpv3I9iNh0zQffm0/lDKXZXHIQHtdlyPySGQGwYeSpSdRFKmiKB5JvUISrLVWoMCKhKaqQ00FDRL9shpBIWl8lmWqbdvgNL2l2Uu6bRvv+/7YaC9R3/f3dMxy8jwn9Mm3Zw6RLJtvOvDbSRwiTAmPfCKSAGTSP0cImb6N2Fza4zjUuq78URp6EsdxkOTpdF3HSZLcwoSxpmn6WsQUQ/yfAAMAl6XEeJIUMXAAAAAASUVORK5CYII=") no-repeat center;
-        &:active {
-        background-color: color-shade(#fff);
+        border-bottom: ${(props) => props.popupBorderThick + 'px'} solid ${(props) => props.popupDivideBorderColor};
+        background: #fff;
+        h2 {
+            margin: 0;
+            padding: 0 ${(props) => props.popupInnerPadding + props.headerHeight + 'px'} 0 ${(props) => props.popupInnerPadding + 'px'};
+            font-size: 16px;
+            font-weight: 500;
+            line-height: ${(props) => props.headerHeight + 'px'};
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-    }
+        a {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: ${(props) => props.headerHeight + 'px'};
+            height: ${(props) => props.headerHeight + 'px'};
+            text-indent: -9999px;
+            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAARCAYAAADQWvz5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA25pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo5MDI3OTk0Yi0yYjI1LTJlNGMtYTQ4YS1iYzA2NDRkMGIzMzIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzM1QTQyNDQ4NjUzMTFFOEI5NjNFOUIwNEYxNTk1NTciIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzM1QTQyNDM4NjUzMTFFOEI5NjNFOUIwNEYxNTk1NTciIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OTY5MUEwNTc4MzRDMTFFOEJCQkVFNDlFQTgyRDk0RkYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OTY5MUEwNTg4MzRDMTFFOEJCQkVFNDlFQTgyRDk0RkYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6WSLqQAAABB0lEQVR42pySaaqFMAyFmzrgNgWnDSnOrlNE8zhCoLe1vdfXP9WkOfky0DAMTESqLEtS/ziIx03MrKZpYtxVVb0Sm+f5jgOEhgEfMMDxhkRE8K/FUdc1neepxnHkX0gEQGw3iXlQpv3I9iNh0zQffm0/lDKXZXHIQHtdlyPySGQGwYeSpSdRFKmiKB5JvUISrLVWoMCKhKaqQ00FDRL9shpBIWl8lmWqbdvgNL2l2Uu6bRvv+/7YaC9R3/f3dMxy8jwn9Mm3Zw6RLJtvOvDbSRwiTAmPfCKSAGTSP0cImb6N2Fza4zjUuq78URp6EsdxkOTpdF3HSZLcwoSxpmn6WsQUQ/yfAAMAl6XEeJIUMXAAAAAASUVORK5CYII=") no-repeat center;
+            &:active {
+            background-color: color-shade(#fff);
+            }
+        }
     `;
     const Footer = styled.div`
         position: absolute;
         top: 100%;
+        display: flex;
         width: 100%;
         height: ${(props) => props.footerHeight + 'px'};
         margin-top: -${(props) => props.popupBorderThick * 2 + 'px'};
+        align-items: center;
         text-align: center;
         font-size: 0;
         border-top: ${(props) => props.popupBorderThick + 'px'} solid ${(props) => props.popupDivideBorderColor};
         background: #fff;
         
-        &:before {
-            display: inline-block;
-            height: 100%;
-            vertical-align: middle;
+        &:before ,
+        &:after {
+            flex-basis: ${(props) => props.popupInnerPadding + 'px'};
             content: "";
         }
 
         button {
-            display: inline-block;
-            font-size: 16px;
-            min-width: 140px;
+            flex: 1;
             min-height: 40px;
-            vertical-align: middle;
             font-size: 16px;
+            line-height: 1.2;
             border: 0;
             border-radius: 2px;
             background: 0;
             &+button {
                 margin-left: 10px;
+            }
+            &.${normalBtn} {
+                color: #000;
+                background: #eee;
+                &:active {
+                    background: #333;
+                }
             }
             &.${negativeBtn} {
                 color: #fff;
@@ -133,7 +141,9 @@ const makeNew = function(a) {
         display: inline-block;
         max-width: 100%;
         min-width: 320px;
+        width: ${(props) => props.popupWidth};
         max-height: 100%;
+        height: ${(props) => props.popupHeight} !important;
         text-align: left;
         // border: 1px solid ${(props) => props.popupBorderColor};
         // border-top: 0;
@@ -168,39 +178,39 @@ const makeNew = function(a) {
         }
     `;
     const Popup = styled.div`
-    z-index: 1000;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: none;
-    padding: ${(props) => props.popupOuterPadding + 'px'};
-    font-size: 0;
-    white-space: nowrap;
-    text-align: center;
-    &.${a} {
-        z-index: 1001;
-    }
-    &.${popupOn} {
-        display: block;
-    }
-    &.${hasHeader} {
-        padding-top: ${(props) => props.headerHeight + props.popupOuterPadding + 'px'};
-    }
-    &.${hasFooter} {
-        padding-bottom: ${(props) => props.footerHeight + props.popupOuterPadding + 'px'};
-    }
-    
-    &:before {
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-        content: "";
-    }
-    &::selection {
-        background: 0;
-    }
+        z-index: 1000;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: none;
+        padding: ${(props) => props.popupOuterPadding + 'px'};
+        font-size: 0;
+        white-space: nowrap;
+        text-align: center;
+        &.${a} {
+            z-index: 1001;
+        }
+        &.${popupOn} {
+            display: block;
+        }
+        &.${hasHeader} {
+            padding-top: ${(props) => props.headerHeight + props.popupOuterPadding + 'px'};
+        }
+        &.${hasFooter} {
+            padding-bottom: ${(props) => props.footerHeight + props.popupOuterPadding + 'px'};
+        }
+        
+        &:before {
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            content: "";
+        }
+        &::selection {
+            background: 0;
+        }
     `;
     return {
         popupOn: popupOn,
@@ -235,6 +245,7 @@ export default class ClassPopup extends React.Component {
             headerHeight: 40,
             footerHeight: 70,
             popupOuterPadding: 20,
+            popupInnerPadding: 20,
             popupBorderThick: 1,
             popupBorderColor: '#333',
             popupDivideBorderColor: '#eee'
@@ -282,7 +293,7 @@ export default class ClassPopup extends React.Component {
                 if(PositionElem.style.height === contentsHeight) {
                     return false;
                 };
-                PopupElem.classList.remove(hasScroll);
+                PopupElem.classList.remove(this.state.ctr.hasScroll);
                 windowHeight = window.innerHeight;
                 height = windowHeight - margin;
                 PositionElem.style.height = contentsHeight + 'px';
@@ -320,6 +331,7 @@ export default class ClassPopup extends React.Component {
         if (this.props.title) {
             header = <this.state.ctr.Header
                 headerHeight={this.state.headerHeight}
+                popupInnerPadding={this.state.popupInnerPadding}
                 popupBorderThick={this.state.popupBorderThick}
                 popupDivideBorderColor={this.state.popupDivideBorderColor}
             >
@@ -351,6 +363,7 @@ export default class ClassPopup extends React.Component {
             }
             footer = <this.state.ctr.Footer
                 footerHeight={this.state.footerHeight}
+                popupInnerPadding={this.state.popupInnerPadding}
                 popupBorderThick={this.state.popupBorderThick}
                 popupDivideBorderColor={this.state.popupDivideBorderColor}
             >
@@ -364,6 +377,8 @@ export default class ClassPopup extends React.Component {
                 footerHeight={this.state.footerHeight}
             >
                 <this.state.ctr.Position
+                    popupWidth={this.props.width ? this.props.width + 'px' : this.state.width}
+                    popupHeight={this.props.height ? this.props.height + 'px' : this.state.height}
                     headerHeight={this.state.headerHeight}
                     footerHeight={this.state.footerHeight}
                     popupBorderThick={this.state.popupBorderThick}
@@ -371,8 +386,7 @@ export default class ClassPopup extends React.Component {
                 >
                     {header}
                     <this.state.ctr.Contents
-                        popupWidth={this.props.width ? this.props.width + 'px' : this.state.width}
-                        popupHeight={this.props.height ? this.props.height + 'px' : this.state.height}
+                        popupInnerPadding={this.state.popupInnerPadding}
                     >
                         {this.props.children}
                     </this.state.ctr.Contents>
