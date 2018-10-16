@@ -296,6 +296,8 @@ export default class ClassPopup extends React.Component {
                 open: true
             });
         } else {
+            const activeElem = document.querySelector('.'+this.state.active);
+            (activeElem !== null) && (activeElem.classList.remove(this.state.active));
             const PopupElem = document.querySelector('.'+this.state.ctr.Popup.styledComponentId);
             PopupElem.classList.add(this.state.ctr.popupOn);
             const PositionElem = document.querySelector('.'+this.state.ctr.Position.styledComponentId);
