@@ -13,7 +13,8 @@ style만으로 구현한 팝업입니다.
 리사이즈할때 컨텐츠의 높이를 바꿔넣어줍니다.
 
 그리고 아무 동작없이 반응형하는 팝업을 유지할 수 있습니다.
-<iframe width="630" height="394" src="https://www.useloom.com/embed/3f677eaa7e974231887afb3d7a4e8428" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+[![Watch the video]()](https://www.useloom.com/embed/3f677eaa7e974231887afb3d7a4e8428)
+
 [jsfiddle's demo](https://jsfiddle.net/uiwwnw/23nv17yz/embedded/result/#Result/)
 
 ## 사용방법 How to use
