@@ -13,7 +13,7 @@ style만으로 구현한 팝업입니다.
 리사이즈할때 컨텐츠의 높이를 바꿔넣어줍니다.
 
 그리고 아무 동작없이 반응형하는 팝업을 유지할 수 있습니다.
-[![Watch the video](https://raw.githubusercontent.com/uiwwnw/react-flexpopup/master/noreact/demo.jpg)](https://youtu.be/bW1UtcShS6Y)
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/bW1UtcShS6Y/0.jpg)](https://www.youtube.com/watch?v=bW1UtcShS6Y)
 
 [jsfiddle's demo](https://jsfiddle.net/uiwwnw/23nv17yz/embedded/result/#Result/)
 
