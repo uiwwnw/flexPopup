@@ -143,7 +143,7 @@ const makeNew = function(a) {
         min-width: 320px;
         width: ${(props) => props.popupWidth};
         max-height: 100%;
-        height: ${(props) => props.popupHeight} !important;
+        height: ${(props) => props.popupHeight};
         text-align: left;
         // border: 1px solid ${(props) => props.popupBorderColor};
         // border-top: 0;
@@ -378,7 +378,7 @@ export default class ClassPopup extends React.Component {
             >
                 <this.state.ctr.Position
                     popupWidth={this.props.width ? this.props.width + 'px' : this.state.width}
-                    popupHeight={this.props.height ? this.props.height + 'px' : this.state.height}
+                    popupHeight={this.props.height ? this.props.height + 'px !important' : this.state.height}
                     headerHeight={this.state.headerHeight}
                     footerHeight={this.state.footerHeight}
                     popupBorderThick={this.state.popupBorderThick}
