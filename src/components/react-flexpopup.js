@@ -51,7 +51,7 @@ const makeNew = function(a) {
         background: #fff;
         h2 {
             margin: 0;
-            padding: 0 ${(props) => props.popupInnerPadding + props.headerHeight + 'px'} 0 ${(props) => props.popupInnerPadding + 'px'};
+            padding: 0 ${(props) => props.headerHeight + 'px'} 0 ${(props) => props.popupInnerPadding + 'px'};
             font-size: 16px;
             font-weight: 500;
             line-height: ${(props) => props.headerHeight + 'px'};
@@ -140,7 +140,6 @@ const makeNew = function(a) {
         position: relative;
         display: inline-block;
         max-width: 100%;
-        min-width: 320px;
         width: ${(props) => props.popupWidth};
         max-height: 100%;
         height: ${(props) => props.popupHeight};
@@ -286,7 +285,7 @@ export default class ClassPopup extends React.Component {
             const PositionElem = document.querySelector('.'+this.state.ctr.Position.styledComponentId);
             const contentsElem = document.querySelector('.'+this.state.ctr.Contents.styledComponentId);
             let contentsHeight = this.props.height?this.props.height:Math.ceil(contentsElem.scrollHeight);
-            const margin = (this.state.popupOuterPadding * 2) + this.state.headerHeight + this.state.footerHeight;
+            const margin = (this.state.popupOuterPadding * 2) + (HeaderElem?this.state.headerHeight:0) + (FooterElem?this.state.footerHeight:0);
             let height = windowHeight - margin;
             const resize = () => {
                 contentsHeight = this.props.height?this.props.height:Math.ceil(contentsElem.scrollHeight);
