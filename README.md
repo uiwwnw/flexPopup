@@ -2,7 +2,9 @@
 
 ## 설명
 react-flexpopup은
-최소한의 스크립트만으로 반응형 팝업을 제작할 수 있습니다.
+어떤크기든 사용자가 이용할 수 있는 크기로 팝업을 제공합니다.
+그 기능을 구현하는데
+최소한의 스크립트만을 이용합니다.
 
 resize, scroll등의 높은 리소스사용 이벤트를 최소화하고
 style만으로 구현한 팝업입니다.
@@ -39,7 +41,7 @@ style만으로 구현한 팝업입니다.
 </Popup>
 ```
 
-[jsfiddle's demo](https://jsfiddle.net/uiwwnw/23nv17yz/)
+[jsfiddle's demo](https://jsfiddle.net/uiwwnw/23nv17yz/embedded/result/#Result/)
 
 ## AUTHOR
 
