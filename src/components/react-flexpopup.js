@@ -285,11 +285,11 @@ export default class ClassPopup extends React.Component {
             const FooterElem = document.querySelector('.'+this.state.ctr.Footer.styledComponentId);
             const PositionElem = document.querySelector('.'+this.state.ctr.Position.styledComponentId);
             const contentsElem = document.querySelector('.'+this.state.ctr.Contents.styledComponentId);
-            let contentsHeight = Math.ceil(contentsElem.scrollHeight);
+            let contentsHeight = this.props.height?this.props.height:Math.ceil(contentsElem.scrollHeight);
             const margin = (this.state.popupOuterPadding * 2) + this.state.headerHeight + this.state.footerHeight;
             let height = windowHeight - margin;
             const resize = () => {
-                contentsHeight = Math.ceil(contentsElem.scrollHeight);
+                contentsHeight = this.props.height?this.props.height:Math.ceil(contentsElem.scrollHeight);
                 if(PositionElem.style.height === contentsHeight) {
                     return false;
                 };
@@ -378,7 +378,7 @@ export default class ClassPopup extends React.Component {
             >
                 <this.state.ctr.Position
                     popupWidth={this.props.width ? this.props.width + 'px' : this.state.width}
-                    popupHeight={this.props.height ? this.props.height + 'px !important' : this.state.height}
+                    popupHeight={this.props.height ? this.props.height + 'px' : this.state.height}
                     headerHeight={this.state.headerHeight}
                     footerHeight={this.state.footerHeight}
                     popupBorderThick={this.state.popupBorderThick}
