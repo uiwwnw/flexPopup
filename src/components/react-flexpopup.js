@@ -14,6 +14,7 @@ const makeNew = function(a) {
 
     const Contents = styled.div`
         overflow: auto;
+        -webkit-overflow-scrolling: touch;
         max-width: 100%;
         // width: ${(props) => props.popupWidth};
         // height: ${(props) => props.popupHeight};
