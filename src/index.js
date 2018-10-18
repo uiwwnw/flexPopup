@@ -41,22 +41,22 @@ export default class App extends React.Component {
                         {
                             'btn1': 
                             {
-                                'text': '길이가 긴 팝업', 
+                                'text': '팝업1', 
                                 'function': this.popupOpen1.bind(this)
                             }, 
                             'btn2': 
                             {
-                                'text': '너비가 넓은 팝업', 
+                                'text': '팝업2', 
                                 'function': this.popupOpen2.bind(this)
                             }, 
                             'btn3': 
                             {
-                                'text': '헤더가 없는 팝업', 
+                                'text': '팝업3', 
                                 'function': this.popupOpen3.bind(this)
                             }, 
                             'btn4': 
                             {
-                                'text': '푸터가 없는 팝업', 
+                                'text': '팝업4', 
                                 'function': this.popupOpen4.bind(this)
                             }
                         }
